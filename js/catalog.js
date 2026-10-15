@@ -136,6 +136,27 @@ function updateCatalog() {
   renderProducts(preparedProducts);
 }
 
+if (searchInput) {
+  searchInput.addEventListener('input', (event) => {
+    catalogState.query = event.target.value;
+    updateCatalog();
+  });
+}
+
+if (categoryFilter) {
+  categoryFilter.addEventListener('change', (event) => {
+    catalogState.category = event.target.value;
+    updateCatalog();
+  });
+}
+
+if (sortSelect) {
+  sortSelect.addEventListener('change', (event) => {
+    catalogState.sort = event.target.value;
+    updateCatalog();
+  });
+}
+
 if (productsContainer) {
   updateCatalog();
 }
