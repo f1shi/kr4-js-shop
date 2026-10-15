@@ -112,4 +112,10 @@ if (orderForm) {
     formMessage.textContent = 'Заявка подготовлена. Данные выведены в консоль.';
     orderForm.reset();
   });
+
+  nameInput.addEventListener('input', validateName);
+  emailInput.addEventListener('input', validateEmail);
+  phoneInput.addEventListener('input', validatePhone);
+  topicSelect.addEventListener('change', validateTopic);
+  agreementCheckbox.addEventListener('change', validateAgreement);
 }
