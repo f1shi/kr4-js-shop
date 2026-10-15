@@ -5,6 +5,12 @@ const sortSelect = document.querySelector('#sort-select');
 const catalogCount = document.querySelector('.catalog-count');
 const catalogEmpty = document.querySelector('.catalog-empty');
 const catalogMessage = document.querySelector('.catalog-message');
+const favoritesOnlyCheckbox = document.querySelector('#favorites-only');
+const favoritesCount = document.querySelector('[data-favorites-count]');
+
+const FAVORITES_STORAGE_KEY = 'shop-favorites';
+
+let favoriteIds = loadFromStorage(FAVORITES_STORAGE_KEY, []);
 
 if (!productsContainer) {
   console.warn('Контейнер товаров не найден. Проверьте data-products-container.');
@@ -13,8 +19,37 @@ if (!productsContainer) {
 const catalogState = {
   query: '',
   category: 'all',
-  sort: 'default'
+  sort: 'default',
+  onlyFavorites: false
 };
+
+function isFavorite(productId) {
+  return favoriteIds.includes(productId);
+}
+
+function toggleFavorite(productId) {
+  if (isFavorite(productId)) {
+    favoriteIds = favoriteIds.filter((id) => id !== productId);
+  } else {
+    favoriteIds.push(productId);
+  }
+
+  saveToStorage(FAVORITES_STORAGE_KEY, favoriteIds);
+}
+
+function filterFavoriteProducts(products, onlyFavorites) {
+  if (!onlyFavorites) {
+    return products;
+  }
+
+  return products.filter((product) => isFavorite(product.id));
+}
+
+function updateFavoritesCount() {
+  if (favoritesCount) {
+    favoritesCount.textContent = `(${favoriteIds.length})`;
+  }
+}
 
 function sortProducts(products, sortType) {
   const productsCopy = [...products];
@@ -39,6 +74,7 @@ function getPreparedProducts(products, state) {
 
   result = searchProducts(result, state.query);
   result = filterProductsByCategory(result, state.category);
+  result = filterFavoriteProducts(result, state.onlyFavorites);
   result = sortProducts(result, state.sort);
 
   return result;
@@ -131,9 +167,18 @@ function createProductCard(product) {
     button.textContent = 'Недоступно';
   }
 
+  const favoriteButton = document.createElement('button');
+  favoriteButton.classList.add('product-card__favorite');
+  favoriteButton.type = 'button';
+  favoriteButton.dataset.action = 'toggle-favorite';
+  favoriteButton.dataset.productId = String(product.id);
+  favoriteButton.setAttribute('aria-pressed', String(isFavorite(product.id)));
+  favoriteButton.setAttribute('aria-label', `В избранное: ${product.title}`);
+  favoriteButton.textContent = isFavorite(product.id) ? '♥' : '♡';
+
   actions.append(detailsLink, button);
 
-  card.append(image, category, title, rating, description, price, status, actions);
+  card.append(favoriteButton, image, category, title, rating, description, price, status, actions);
 
   return card;
 }
@@ -181,12 +226,29 @@ if (sortSelect) {
   });
 }
 
+if (favoritesOnlyCheckbox) {
+  favoritesOnlyCheckbox.addEventListener('change', (event) => {
+    catalogState.onlyFavorites = event.target.checked;
+    updateCatalog();
+  });
+}
+
 if (productsContainer) {
+  updateFavoritesCount();
   updateCatalog();
 }
 
 if (productsContainer) {
   productsContainer.addEventListener('click', (event) => {
+    const favoriteButton = event.target.closest('[data-action="toggle-favorite"]');
+
+    if (favoriteButton) {
+      toggleFavorite(Number(favoriteButton.dataset.productId));
+      updateFavoritesCount();
+      updateCatalog();
+      return;
+    }
+
     const button = event.target.closest('[data-action="add-to-cart"]');
 
     if (!button) {
