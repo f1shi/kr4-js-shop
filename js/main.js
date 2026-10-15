@@ -8,7 +8,7 @@ function calculateDiscount(price, discountPercent) {
 
 function calculateFinalPrice(price, discountPercent) {
   const discountValue = calculateDiscount(price, discountPercent);
-  return price - discountValue;
+  return Math.round(price - discountValue);
 }
 
 function getProductStatus(product) {
