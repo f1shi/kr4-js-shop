@@ -10,7 +10,11 @@
     />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/data.js" defer></script>
+    <script src="js/storage.js" defer></script>
     <script src="js/main.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/modal.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -46,6 +50,12 @@
                 class="site-nav__link site-nav__link--active"
                 aria-current="page"
                 >Контакты</a
+              >
+            </li>
+            <li class="site-nav__item">
+              <a href="cart.html" class="site-nav__link site-nav__link--cart"
+                >Корзина
+                <span class="cart-counter" data-cart-count>0</span></a
               >
             </li>
           </ul>
