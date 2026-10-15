@@ -14,6 +14,23 @@ if (orderForm) {
   const agreementError = orderForm.querySelector('#page-agreement-error');
 
   const formMessage = orderForm.querySelector('.form-message');
+  const commentInput = orderForm.querySelector('#page-comment');
+  const submitButton = orderForm.querySelector('button[type="submit"]');
+
+  function fillOrderFromCart() {
+    const cartProducts = getCartProducts();
+
+    if (cartProducts.length === 0 || !commentInput) {
+      return;
+    }
+
+    const lines = cartProducts.map((cartProduct) => {
+      return `${cartProduct.product.title} × ${cartProduct.quantity}`;
+    });
+
+    topicSelect.value = 'product';
+    commentInput.value = `Товары из корзины:\n${lines.join('\n')}`;
+  }
 
   function showError(input, errorElement, message) {
     errorElement.textContent = message;
@@ -104,14 +121,30 @@ if (orderForm) {
       name: nameInput.value.trim(),
       email: emailInput.value.trim(),
       phone: phoneInput.value.trim(),
-      topic: topicSelect.value
+      topic: topicSelect.value,
+      comment: commentInput ? commentInput.value.trim() : '',
+      cart: getCartProducts().map((cartProduct) => ({
+        id: cartProduct.product.id,
+        quantity: cartProduct.quantity
+      }))
     };
 
     console.table(requestData);
 
-    formMessage.textContent = 'Заявка подготовлена. Данные выведены в консоль.';
-    orderForm.reset();
+    submitButton.disabled = true;
+    submitButton.textContent = 'Отправка...';
+    formMessage.textContent = 'Отправляем заявку...';
+
+    setTimeout(() => {
+      formMessage.textContent = `Спасибо, ${requestData.name}! Заявка отправлена, менеджер свяжется с вами.`;
+      submitButton.disabled = false;
+      submitButton.textContent = 'Отправить заявку';
+      orderForm.reset();
+      clearCart();
+    }, 800);
   });
+
+  fillOrderFromCart();
 
   nameInput.addEventListener('input', validateName);
   emailInput.addEventListener('input', validateEmail);
