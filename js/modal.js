@@ -37,14 +37,14 @@ if (closeDialogButton && orderDialog) {
   });
 }
 
-const orderForm = document.getElementById('order-form');
+const dialogOrderForm = document.getElementById('order-form');
 const successMessage = document.getElementById('success-message');
 
-if (orderForm) {
-  orderForm.addEventListener('submit', (event) => {
+if (dialogOrderForm) {
+  dialogOrderForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const formElements = Array.from(orderForm.elements);
+    const formElements = Array.from(dialogOrderForm.elements);
 
     formElements.forEach((element) => {
       if (element.willValidate) {
@@ -52,18 +52,18 @@ if (orderForm) {
       }
     });
 
-    if (!orderForm.checkValidity()) {
+    if (!dialogOrderForm.checkValidity()) {
       formElements.forEach((element) => {
         if (element.willValidate && !element.checkValidity()) {
           setFieldError(element, true);
         }
       });
-      orderForm.reportValidity();
+      dialogOrderForm.reportValidity();
       return;
     }
 
     if (successMessage) successMessage.hidden = false;
-    orderForm.reset();
+    dialogOrderForm.reset();
     if (orderDialog) orderDialog.close();
   });
 }
