@@ -83,13 +83,6 @@ function getPreparedProducts(products, state) {
   return result;
 }
 
-const categoryLabels = {
-  smartphones: 'Смартфоны',
-  laptops: 'Ноутбуки',
-  headphones: 'Наушники',
-  accessories: 'Аксессуары'
-};
-
 function createProductCard(product) {
   const card = document.createElement('article');
   card.classList.add('product-card');

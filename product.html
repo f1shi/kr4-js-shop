@@ -14,6 +14,7 @@
     <script src="js/storage.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/cart.js" defer></script>
+    <script src="js/product.js" defer></script>
     <script src="js/modal.js" defer></script>
   </head>
   <body>
@@ -79,14 +80,21 @@
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
           <a class="breadcrumbs__link" href="index.html">Главная</a>
           <a class="breadcrumbs__link" href="catalog.html">Каталог</a>
-          <span class="breadcrumbs__current" aria-current="page">Смартфон Galaxy X</span>
+          <span class="breadcrumbs__current" aria-current="page" data-product-breadcrumb
+            >Смартфон Galaxy X</span
+          >
         </nav>
 
         <div class="product-detail">
           <picture class="product-detail__picture">
-            <source srcset="images/galaxy-x-640.webp" type="image/webp" />
+            <source
+              srcset="images/galaxy-x-640.webp"
+              type="image/webp"
+              data-product-source
+            />
             <img
               class="product-detail__image"
+              data-product-image
               src="images/galaxy-x-640.jpg"
               alt="Смартфон Galaxy X"
               width="640"
@@ -94,20 +102,32 @@
             />
           </picture>
           <div class="product-detail__info">
-            <h1 class="product-detail__title">Смартфон Galaxy X</h1>
-            <p class="product-detail__price">54 990 руб.</p>
-            <p class="product-detail__description">
+            <h1 class="product-detail__title" data-product-title>Смартфон Galaxy X</h1>
+            <p class="product-detail__price" data-product-price>54 990 руб.</p>
+            <p class="product-detail__status" data-product-status>В наличии</p>
+            <p class="product-detail__description" data-product-description>
               Флагманский смартфон с ярким AMOLED-дисплеем 6.5",
               производительным процессором и тройной камерой. Идеальный выбор
               для работы и развлечений.
             </p>
-            <button
-              class="button button--primary product-card__button"
-              type="button"
-              data-product="Смартфон Galaxy X"
-            >
-              Оставить заявку
-            </button>
+            <div class="product-detail__actions">
+              <button
+                class="button button--primary"
+                type="button"
+                data-action="add-to-cart"
+                data-product-id="1"
+              >
+                В корзину
+              </button>
+              <button
+                class="button button--outline product-card__button"
+                type="button"
+                data-product="Смартфон Galaxy X"
+              >
+                Оставить заявку
+              </button>
+            </div>
+            <p class="form-message" data-product-message aria-live="polite"></p>
           </div>
         </div>
 
@@ -115,7 +135,7 @@
         <h2>Характеристики</h2>
         <div class="table-wrapper">
           <table class="specs-table">
-            <caption>
+            <caption data-product-caption>
               Технические характеристики Galaxy X
             </caption>
             <thead>
@@ -124,7 +144,7 @@
                 <th scope="col">Значение</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody data-product-specs>
               <tr>
                 <th scope="row">Дисплей</th>
                 <td>6.5" AMOLED, 2400×1080</td>

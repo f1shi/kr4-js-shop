@@ -1,3 +1,10 @@
+const categoryLabels = {
+  smartphones: 'Смартфоны',
+  laptops: 'Ноутбуки',
+  headphones: 'Наушники',
+  accessories: 'Аксессуары'
+};
+
 const products = [
   {
     id: 1,

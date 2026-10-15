@@ -1261,3 +1261,28 @@ a:focus-visible {
 [data-theme="dark"] .skip-link {
   color: #ffffff;
 }
+
+.product-detail__status {
+  margin: 0 0 var(--space-md);
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.product-detail__status--unavailable {
+  color: var(--color-danger);
+}
+
+.product-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.product-detail__actions .button {
+  min-height: 44px;
+}
+
+.product-detail__actions .product-card__button {
+  margin-top: 0;
+}
