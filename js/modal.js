@@ -69,40 +69,6 @@ if (orderForm) {
 }
 
 /* =========================================================
-   ФОРМА НА СТРАНИЦЕ order.html
-   ========================================================= */
-
-const pageOrderForm = document.getElementById('order-form-page');
-const pageSuccessMessage = document.getElementById('success-message-page');
-
-if (pageOrderForm) {
-  pageOrderForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formElements = Array.from(pageOrderForm.elements);
-
-    formElements.forEach((element) => {
-      if (element.willValidate) {
-        setFieldError(element, false);
-      }
-    });
-
-    if (!pageOrderForm.checkValidity()) {
-      formElements.forEach((element) => {
-        if (element.willValidate && !element.checkValidity()) {
-          setFieldError(element, true);
-        }
-      });
-      pageOrderForm.reportValidity();
-      return;
-    }
-
-    if (pageSuccessMessage) pageSuccessMessage.hidden = false;
-    pageOrderForm.reset();
-  });
-}
-
-/* =========================================================
    ФОРМА ОБРАТНОЙ СВЯЗИ НА contacts.html
    ========================================================= */
 
