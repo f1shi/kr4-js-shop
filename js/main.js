@@ -51,6 +51,26 @@ function searchProducts(products, query) {
   });
 }
 
+function filterProductsByCategory(products, category) {
+  if (category === 'all') {
+    return products;
+  }
+
+  return products.filter((product) => {
+    return product.category === category;
+  });
+}
+
+function sortProductsByPrice(products, direction = 'asc') {
+  const productsCopy = [...products];
+
+  if (direction === 'desc') {
+    return productsCopy.sort((a, b) => b.price - a.price);
+  }
+
+  return productsCopy.sort((a, b) => a.price - b.price);
+}
+
 const firstProduct = products[0];
 
 console.log(formatPrice(firstProduct.price));
@@ -65,6 +85,10 @@ console.log(productSummary);
 console.log(getProductTitles(products));
 console.table(getAvailableProducts(products));
 console.table(searchProducts(products, 'наушники'));
+
+console.table(filterProductsByCategory(products, 'laptops'));
+console.table(sortProductsByPrice(products, 'asc'));
+console.table(sortProductsByPrice(products, 'desc'));
 
 const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
