@@ -1,6 +1,12 @@
 const CART_STORAGE_KEY = 'shop-cart';
+const PROMO_STORAGE_KEY = 'shop-promo';
+const PROMO_CODES = {
+  STUDENT10: 10,
+  SHOP5: 5
+};
 
 let cartItems = loadFromStorage(CART_STORAGE_KEY, []);
+let appliedPromoCode = loadFromStorage(PROMO_STORAGE_KEY, '');
 
 function saveCart() {
   saveToStorage(CART_STORAGE_KEY, cartItems);
@@ -79,8 +85,32 @@ function getCartProducts() {
     .filter(Boolean);
 }
 
+function calculateCartSubtotal(cartProducts) {
+  return cartProducts.reduce((sum, cartProduct) => {
+    const unitPrice = calculateFinalPrice(cartProduct.product.price, cartProduct.product.discountPercent);
+    return sum + unitPrice * cartProduct.quantity;
+  }, 0);
+}
+
+function getPromoPercent(code) {
+  return PROMO_CODES[code] || 0;
+}
+
+function calculatePromoDiscount(subtotal, code) {
+  return Math.round(subtotal * getPromoPercent(code) / 100);
+}
+
 const cartList = document.querySelector('[data-cart-list]');
 const cartEmpty = document.querySelector('.cart-empty');
+const cartTotalCount = document.querySelector('[data-cart-total-count]');
+const cartSubtotal = document.querySelector('[data-cart-subtotal]');
+const cartPromo = document.querySelector('[data-cart-promo]');
+const cartTotal = document.querySelector('[data-cart-total]');
+const cartCheckout = document.querySelector('[data-cart-checkout]');
+const clearCartButton = document.querySelector('[data-action="clear-cart"]');
+const promoForm = document.querySelector('.promo-form');
+const promoInput = document.querySelector('#promo-code');
+const promoMessage = document.querySelector('.promo-form__message');
 
 function createCartButton(text, action, productId, label) {
   const button = document.createElement('button');
@@ -161,6 +191,41 @@ function renderCart() {
   cartProducts.forEach((cartProduct) => {
     cartList.append(createCartItem(cartProduct));
   });
+
+  renderCartSummary(cartProducts);
+}
+
+function renderCartSummary(cartProducts) {
+  const subtotal = calculateCartSubtotal(cartProducts);
+  const promoDiscount = calculatePromoDiscount(subtotal, appliedPromoCode);
+  const isEmpty = cartProducts.length === 0;
+
+  if (cartTotalCount) {
+    cartTotalCount.textContent = String(getCartCount());
+  }
+
+  if (cartSubtotal) {
+    cartSubtotal.textContent = formatPrice(subtotal);
+  }
+
+  if (cartPromo) {
+    cartPromo.textContent = promoDiscount > 0
+      ? `−${formatPrice(promoDiscount)} (${appliedPromoCode})`
+      : formatPrice(0);
+  }
+
+  if (cartTotal) {
+    cartTotal.textContent = formatPrice(subtotal - promoDiscount);
+  }
+
+  if (cartCheckout) {
+    cartCheckout.classList.toggle('button--disabled', isEmpty);
+    cartCheckout.setAttribute('aria-disabled', String(isEmpty));
+  }
+
+  if (clearCartButton) {
+    clearCartButton.disabled = isEmpty;
+  }
 }
 
 if (cartList) {
@@ -185,6 +250,51 @@ if (cartList) {
       removeFromCart(productId);
     }
 
+    renderCart();
+  });
+}
+
+if (clearCartButton) {
+  clearCartButton.addEventListener('click', () => {
+    clearCart();
+    renderCart();
+  });
+}
+
+if (cartCheckout) {
+  cartCheckout.addEventListener('click', (event) => {
+    if (cartItems.length === 0) {
+      event.preventDefault();
+    }
+  });
+}
+
+if (promoForm && promoInput && promoMessage) {
+  if (appliedPromoCode) {
+    promoInput.value = appliedPromoCode;
+  }
+
+  promoForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const code = promoInput.value.trim().toUpperCase();
+
+    if (code === '') {
+      appliedPromoCode = '';
+      saveToStorage(PROMO_STORAGE_KEY, appliedPromoCode);
+      promoMessage.textContent = 'Промокод удалён.';
+      renderCart();
+      return;
+    }
+
+    if (getPromoPercent(code) === 0) {
+      promoMessage.textContent = 'Такого промокода нет.';
+      return;
+    }
+
+    appliedPromoCode = code;
+    saveToStorage(PROMO_STORAGE_KEY, appliedPromoCode);
+    promoMessage.textContent = `Промокод ${code} применён: скидка ${getPromoPercent(code)}%.`;
     renderCart();
   });
 }
