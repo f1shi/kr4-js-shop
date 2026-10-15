@@ -9,6 +9,8 @@ const favoritesOnlyCheckbox = document.querySelector('#favorites-only');
 const favoritesCount = document.querySelector('[data-favorites-count]');
 
 const FAVORITES_STORAGE_KEY = 'shop-favorites';
+const PRODUCTS_PER_PAGE = 6;
+const paginationContainer = document.querySelector('[data-pagination]');
 
 let favoriteIds = loadFromStorage(FAVORITES_STORAGE_KEY, []);
 
@@ -20,7 +22,8 @@ const catalogState = {
   query: '',
   category: 'all',
   sort: 'default',
-  onlyFavorites: false
+  onlyFavorites: false,
+  page: 1
 };
 
 function isFavorite(productId) {
@@ -200,36 +203,105 @@ function renderProducts(productsToRender) {
   });
 }
 
+function getPageCount(itemsCount) {
+  return Math.max(1, Math.ceil(itemsCount / PRODUCTS_PER_PAGE));
+}
+
+function getPageProducts(productsList, page) {
+  const start = (page - 1) * PRODUCTS_PER_PAGE;
+  return productsList.slice(start, start + PRODUCTS_PER_PAGE);
+}
+
+function renderPagination(pageCount) {
+  if (!paginationContainer) {
+    return;
+  }
+
+  paginationContainer.textContent = '';
+  paginationContainer.hidden = pageCount <= 1;
+
+  for (let page = 1; page <= pageCount; page += 1) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('pagination__button');
+    button.textContent = String(page);
+    button.dataset.page = String(page);
+    button.setAttribute('aria-label', `Страница ${page}`);
+
+    if (page === catalogState.page) {
+      button.classList.add('pagination__button--active');
+      button.setAttribute('aria-current', 'page');
+    }
+
+    paginationContainer.append(button);
+  }
+}
+
 function updateCatalog() {
   const preparedProducts = getPreparedProducts(products, catalogState);
-  renderProducts(preparedProducts);
+  const pageCount = getPageCount(preparedProducts.length);
+
+  if (catalogState.page > pageCount) {
+    catalogState.page = pageCount;
+  }
+
+  renderProducts(getPageProducts(preparedProducts, catalogState.page));
+
+  if (catalogCount) {
+    catalogCount.textContent = `Найдено товаров: ${preparedProducts.length}`;
+  }
+
+  if (catalogEmpty) {
+    catalogEmpty.hidden = preparedProducts.length > 0;
+  }
+
+  renderPagination(pageCount);
+}
+
+function resetPageAndUpdate() {
+  catalogState.page = 1;
+  updateCatalog();
 }
 
 if (searchInput) {
   searchInput.addEventListener('input', (event) => {
     catalogState.query = event.target.value;
-    updateCatalog();
+    resetPageAndUpdate();
   });
 }
 
 if (categoryFilter) {
   categoryFilter.addEventListener('change', (event) => {
     catalogState.category = event.target.value;
-    updateCatalog();
+    resetPageAndUpdate();
   });
 }
 
 if (sortSelect) {
   sortSelect.addEventListener('change', (event) => {
     catalogState.sort = event.target.value;
-    updateCatalog();
+    resetPageAndUpdate();
   });
 }
 
 if (favoritesOnlyCheckbox) {
   favoritesOnlyCheckbox.addEventListener('change', (event) => {
     catalogState.onlyFavorites = event.target.checked;
+    resetPageAndUpdate();
+  });
+}
+
+if (paginationContainer) {
+  paginationContainer.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-page]');
+
+    if (!button) {
+      return;
+    }
+
+    catalogState.page = Number(button.dataset.page);
     updateCatalog();
+    productsContainer.scrollIntoView({ block: 'start' });
   });
 }
 
