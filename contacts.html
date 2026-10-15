@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopProject — Контакты</title>
+    <meta
+      name="description"
+      content="Контактная информация ShopProject: адрес, телефон, email и форма обратной связи."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">ShopProject</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <button
+            class="site-nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav-list"
+            hidden
+          >
+            Меню
+          </button>
+          <ul class="site-nav__list" id="site-nav-list">
+            <li class="site-nav__item">
+              <a href="index.html" class="site-nav__link">Главная</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="catalog.html" class="site-nav__link">Каталог</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="product.html" class="site-nav__link">Товар</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="order.html" class="site-nav__link">Заявка</a>
+            </li>
+            <li class="site-nav__item">
+              <a
+                href="contacts.html"
+                class="site-nav__link site-nav__link--active"
+                aria-current="page"
+                >Контакты</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <section class="section">
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a class="breadcrumbs__link" href="index.html">Главная</a>
+          <span class="breadcrumbs__current" aria-current="page">Контакты</span>
+        </nav>
+
+        <h1>Контакты</h1>
+        <p>Мы всегда рады помочь вам. Свяжитесь с нами удобным способом.</p>
+
+        <div class="contacts-layout">
+          <aside class="contacts-info">
+            <h2 class="contacts-info__title">Наши контакты</h2>
+            <ul class="contacts-info__list">
+              <li class="contacts-info__item">
+                <strong>Адрес:</strong> г. Москва, ул. Программистов, д. 1
+              </li>
+              <li class="contacts-info__item">
+                <strong>Телефон:</strong>
+                <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+              </li>
+              <li class="contacts-info__item">
+                <strong>E-mail:</strong>
+                <a href="mailto:info@shopproject.ru">info@shopproject.ru</a>
+              </li>
+              <li class="contacts-info__item">
+                <strong>Режим работы:</strong> Пн–Пт: 9:00–20:00, Сб–Вс:
+                10:00–18:00
+              </li>
+            </ul>
+          </aside>
+
+          <form
+            class="order-form order-form--page"
+            id="feedback-form"
+            action="#"
+            method="post"
+            novalidate
+          >
+            <h2 class="order-form__title">Форма обратной связи</h2>
+            <p class="form-note">
+              Поля, отмеченные звёздочкой, обязательны для заполнения.
+            </p>
+
+            <div class="order-form__field">
+              <label class="order-form__label" for="c-name">Имя *</label>
+              <input
+                class="order-form__input"
+                id="c-name"
+                aria-describedby="c-name-error"
+                name="name"
+                type="text"
+                minlength="2"
+                required
+              />
+              <p class="order-form__error" id="c-name-error" hidden>
+                Введите имя (минимум 2 символа).
+              </p>
+            </div>
+
+            <div class="order-form__field">
+              <label class="order-form__label" for="c-email">E-mail *</label>
+              <input
+                class="order-form__input"
+                id="c-email"
+                aria-describedby="c-email-error"
+                name="email"
+                type="email"
+                required
+              />
+              <p class="order-form__error" id="c-email-error" hidden>
+                Введите корректный e-mail.
+              </p>
+            </div>
+
+            <div class="order-form__field order-form__field--wide">
+              <label class="order-form__label" for="c-message"
+                >Сообщение *</label
+              >
+              <textarea
+                class="order-form__textarea"
+                id="c-message"
+                aria-describedby="c-message-error"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+              <p class="order-form__error" id="c-message-error" hidden>
+                Введите сообщение.
+              </p>
+            </div>
+
+            <div class="order-form__field order-form__field--checkbox order-form__field--wide">
+              <label class="order-form__label">
+                <input
+                  class="order-form__checkbox"
+                  id="c-agreement"
+                  aria-describedby="c-agreement-error"
+                  name="agreement"
+                  type="checkbox"
+                  required
+                />
+                Я согласен на обработку персональных данных *
+              </label>
+              <p class="order-form__error" id="c-agreement-error" hidden>
+                Необходимо согласие на обработку данных.
+              </p>
+            </div>
+
+            <div class="order-form__actions">
+              <button class="button button--primary" type="submit">
+                Отправить
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <p class="success-message" role="status" id="success-message-contacts" hidden>
+          Сообщение успешно отправлено!
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copy">© 2026 ShopProject. Все права защищены.</p>
+        <p class="site-footer__copy">
+          Дисциплина: фронтенд и бэкенд разработка
+        </p>
+        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="order.html">Заявка</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      // Обработка формы обратной связи
+      (function () {
+        const form = document.getElementById("feedback-form");
+        const success = document.getElementById("success-message-contacts");
+        if (!form) return;
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const elements = Array.from(form.elements);
+
+          elements.forEach(function (el) {
+            if (el.willValidate) el.removeAttribute("aria-invalid");
+          });
+
+          if (!form.checkValidity()) {
+            elements.forEach(function (el) {
+              if (el.willValidate && !el.checkValidity()) {
+                el.setAttribute("aria-invalid", "true");
+              }
+            });
+            form.reportValidity();
+            return;
+          }
+
+          success.hidden = false;
+          form.reset();
+        });
+      })();
+    </script>
+
+    <a href="#" class="to-top" aria-label="Наверх">↑</a>
+  </body>
+</html>

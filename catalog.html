@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopProject — Каталог товаров</title>
+    <meta
+      name="description"
+      content="Каталог товаров ShopProject: смартфоны, ноутбуки, наушники и аксессуары."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">ShopProject</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <button
+            class="site-nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav-list"
+            hidden
+          >
+            Меню
+          </button>
+          <ul class="site-nav__list" id="site-nav-list">
+            <li class="site-nav__item">
+              <a href="index.html" class="site-nav__link">Главная</a>
+            </li>
+            <li class="site-nav__item">
+              <a
+                href="catalog.html"
+                class="site-nav__link site-nav__link--active"
+                aria-current="page"
+                >Каталог</a
+              >
+            </li>
+            <li class="site-nav__item">
+              <a href="product.html" class="site-nav__link">Товар</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="order.html" class="site-nav__link">Заявка</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="contacts.html" class="site-nav__link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <section class="section">
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a class="breadcrumbs__link" href="index.html">Главная</a>
+          <span class="breadcrumbs__current" aria-current="page">Каталог</span>
+        </nav>
+
+        <h1>Каталог товаров</h1>
+        <p>Выберите категорию и подберите технику по душе.</p>
+
+        <!-- CSS Grid: фильтры + товары -->
+        <div class="catalog-layout">
+          <!-- ASIDE: Фильтры -->
+          <aside class="catalog-filters">
+            <h2 class="catalog-filters__title">Фильтры</h2>
+
+            <form class="filters-form" action="#" method="get">
+              <fieldset class="filters-form__group">
+                <legend class="filters-form__legend">Категория</legend>
+
+                <label class="filters-form__label">
+                  <input type="checkbox" name="category" value="all" checked />
+                  Все товары
+                </label>
+
+                <label class="filters-form__label">
+                  <input type="checkbox" name="category" value="smartphones" />
+                  Смартфоны
+                </label>
+
+                <label class="filters-form__label">
+                  <input type="checkbox" name="category" value="laptops" />
+                  Ноутбуки
+                </label>
+
+                <label class="filters-form__label">
+                  <input type="checkbox" name="category" value="headphones" />
+                  Наушники
+                </label>
+
+                <label class="filters-form__label">
+                  <input type="checkbox" name="category" value="accessories" />
+                  Аксессуары
+                </label>
+              </fieldset>
+
+              <fieldset class="filters-form__group">
+                <legend class="filters-form__legend">Цена</legend>
+
+                <label class="filters-form__label" for="price-from">От</label>
+                <input
+                  class="filters-form__input"
+                  id="price-from"
+                  name="price-from"
+                  type="number"
+                  min="0"
+                  placeholder="0"
+                />
+
+                <label class="filters-form__label" for="price-to">До</label>
+                <input
+                  class="filters-form__input"
+                  id="price-to"
+                  name="price-to"
+                  type="number"
+                  min="0"
+                  placeholder="100000"
+                />
+              </fieldset>
+
+              <button class="button button--primary" type="submit">
+                Применить
+              </button>
+            </form>
+          </aside>
+
+          <!-- Список товаров -->
+          <section class="catalog-products">
+            <h2>Список товаров</h2>
+
+            <div class="products-grid">
+              <article class="product-card">
+                <img
+                  class="product-card__image"
+                  src="images/galaxy-x-640.jpg"
+                  srcset="
+                    images/galaxy-x-480.jpg 480w,
+                    images/galaxy-x-640.jpg 640w,
+                    images/galaxy-x-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Смартфон Galaxy X"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Смартфон Galaxy X</h3>
+                <p class="product-card__description">
+                  6.5" AMOLED, 128 ГБ, 8 ГБ ОЗУ.
+                </p>
+                <p class="product-card__price">Цена: 54 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+
+              <article class="product-card product-card--discount">
+                <span class="product-card__badge product-card__badge--discount"
+                  >Скидка</span
+                >
+                <img
+                  class="product-card__image"
+                  src="images/probook-15-640.jpg"
+                  srcset="
+                    images/probook-15-480.jpg 480w,
+                    images/probook-15-640.jpg 640w,
+                    images/probook-15-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Ноутбук ProBook 15"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Ноутбук ProBook 15</h3>
+                <p class="product-card__description">
+                  Intel Core i7, 16 ГБ, SSD 512 ГБ.
+                </p>
+                <p class="product-card__price">Цена: 89 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+
+              <article class="product-card product-card--new">
+                <span class="product-card__badge product-card__badge--new"
+                  >Новинка</span
+                >
+                <img
+                  class="product-card__image"
+                  src="images/airsound-640.jpg"
+                  srcset="
+                    images/airsound-480.jpg 480w,
+                    images/airsound-640.jpg 640w,
+                    images/airsound-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Наушники AirSound"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Наушники AirSound</h3>
+                <p class="product-card__description">
+                  Беспроводные, активное шумоподавление.
+                </p>
+                <p class="product-card__price">Цена: 12 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+
+              <article class="product-card">
+                <img
+                  class="product-card__image"
+                  src="images/fitband-640.jpg"
+                  srcset="
+                    images/fitband-480.jpg 480w,
+                    images/fitband-640.jpg 640w,
+                    images/fitband-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Смарт-часы FitBand"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Смарт-часы FitBand</h3>
+                <p class="product-card__description">
+                  AMOLED, GPS, автономность до 7 дней.
+                </p>
+                <p class="product-card__price">Цена: 9 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+
+              <article class="product-card product-card--hit">
+                <span class="product-card__badge product-card__badge--hit"
+                  >Хит</span
+                >
+                <img
+                  class="product-card__image"
+                  src="images/ultraview-27-640.jpg"
+                  srcset="
+                    images/ultraview-27-480.jpg 480w,
+                    images/ultraview-27-640.jpg 640w,
+                    images/ultraview-27-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Монитор UltraView 27&quot;"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Монитор UltraView 27"</h3>
+                <p class="product-card__description">4K, IPS, 144 Гц.</p>
+                <p class="product-card__price">Цена: 32 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+
+              <article class="product-card">
+                <img
+                  class="product-card__image"
+                  src="images/mechpro-640.jpg"
+                  srcset="
+                    images/mechpro-480.jpg 480w,
+                    images/mechpro-640.jpg 640w,
+                    images/mechpro-960.jpg 960w
+                  "
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
+                  alt="Клавиатура MechPro"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                <h3 class="product-card__title">Клавиатура MechPro</h3>
+                <p class="product-card__description">
+                  Механическая, RGB-подсветка.
+                </p>
+                <p class="product-card__price">Цена: 6 990 руб.</p>
+                <a
+                  class="button button--primary product-card__button"
+                  href="product.html"
+                  >Подробнее</a
+                >
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copy">© 2026 ShopProject. Все права защищены.</p>
+        <p class="site-footer__copy">
+          Дисциплина: фронтенд и бэкенд разработка
+        </p>
+        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="order.html">Заявка</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <dialog
+      class="order-dialog"
+      id="order-dialog"
+      aria-labelledby="order-dialog-title"
+      aria-describedby="order-dialog-description"
+    >
+      <h2 class="order-dialog__title" id="order-dialog-title">
+        Оформление заявки
+      </h2>
+
+      <p class="order-dialog__description" id="order-dialog-description">
+        Заполните форму, и менеджер свяжется с вами. Закрыть окно можно кнопкой «Закрыть» или клавишей Esc.
+      </p>
+
+      <form
+        class="order-form"
+        id="order-form"
+        action="#"
+        method="post"
+        novalidate
+      >
+        <input id="selected-product" name="selected-product" type="hidden" />
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-name">Имя</label>
+          <input
+            class="order-form__input"
+            id="order-name"
+            name="name"
+            type="text"
+            minlength="2"
+            required
+          />
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-email">E-mail</label>
+          <input
+            class="order-form__input"
+            id="order-email"
+            name="email"
+            type="email"
+            required
+          />
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-phone">Телефон</label>
+          <input
+            class="order-form__input"
+            id="order-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="+7 (900) 000-00-00"
+            pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+            required
+          />
+          <small class="order-form__hint">Формат: +7 (900) 000-00-00</small>
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-topic">Тема заявки</label>
+          <select
+            class="order-form__select"
+            id="order-topic"
+            name="topic"
+            required
+          >
+            <option value="">Выберите тему</option>
+            <option value="product">Заказ товара</option>
+            <option value="consultation">Консультация</option>
+            <option value="delivery">Доставка</option>
+          </select>
+        </div>
+
+        <div class="order-form__field order-form__field--wide">
+          <label class="order-form__label" for="order-comment"
+            >Комментарий</label
+          >
+          <textarea
+            class="order-form__textarea"
+            id="order-comment"
+            name="comment"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="order-form__field order-form__field--checkbox order-form__field--wide">
+          <label class="order-form__label">
+            <input
+              class="order-form__checkbox"
+              id="order-agreement"
+              name="agreement"
+              type="checkbox"
+              required
+            />
+            Я согласен на обработку данных
+          </label>
+        </div>
+
+        <div class="order-form__actions">
+          <button
+            class="button button--outline"
+            type="button"
+            id="close-order-dialog"
+            aria-label="Закрыть окно заявки"
+          >
+            Закрыть
+          </button>
+          <button class="button button--primary" type="submit">
+            Отправить заявку
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <p class="success-message" role="status" id="success-message" hidden>
+      Форма успешно отправлена!
+    </p>
+
+    <a href="#" class="to-top" aria-label="Наверх">↑</a>
+  </body>
+</html>

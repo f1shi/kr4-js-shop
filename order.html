@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopProject — Оформление заявки</title>
+    <meta
+      name="description"
+      content="Оставьте заявку в ShopProject. Быстрая обработка и обратный звонок."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">ShopProject</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <button
+            class="site-nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav-list"
+            hidden
+          >
+            Меню
+          </button>
+          <ul class="site-nav__list" id="site-nav-list">
+            <li class="site-nav__item">
+              <a href="index.html" class="site-nav__link">Главная</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="catalog.html" class="site-nav__link">Каталог</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="product.html" class="site-nav__link">Товар</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="order.html" class="site-nav__link site-nav__link--active"
+                aria-current="page"
+                >Заявка</a
+              >
+            </li>
+            <li class="site-nav__item">
+              <a href="contacts.html" class="site-nav__link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <section class="section">
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a class="breadcrumbs__link" href="index.html">Главная</a>
+          <span class="breadcrumbs__current" aria-current="page">Заявка</span>
+        </nav>
+
+        <h1>Оформление заявки</h1>
+        <p>
+          Заполните форму, и наш менеджер свяжется с вами в течение 15 минут.
+        </p>
+
+        <p class="form-note">
+          Поля, отмеченные звёздочкой, обязательны для заполнения.
+        </p>
+
+        <form
+          class="order-form order-form--page"
+          id="order-form-page"
+          action="#"
+          method="post"
+          novalidate
+        >
+          <div class="order-form__field">
+            <label class="order-form__label" for="page-name">Имя *</label>
+            <input
+              class="order-form__input"
+              id="page-name"
+              aria-describedby="page-name-error"
+              name="name"
+              type="text"
+              placeholder="Иван Иванов"
+              minlength="2"
+              required
+            />
+            <p class="order-form__error" id="page-name-error" hidden>
+              Введите имя (минимум 2 символа).
+            </p>
+          </div>
+
+          <div class="order-form__field">
+            <label class="order-form__label" for="page-email">E-mail *</label>
+            <input
+              class="order-form__input"
+              id="page-email"
+              aria-describedby="page-email-error"
+              name="email"
+              type="email"
+              placeholder="ivan@example.com"
+              required
+            />
+            <p class="order-form__error" id="page-email-error" hidden>
+              Введите корректный e-mail.
+            </p>
+          </div>
+
+          <div class="order-form__field">
+            <label class="order-form__label" for="page-phone">Телефон *</label>
+            <input
+              class="order-form__input"
+              id="page-phone"
+              aria-describedby="page-phone-hint page-phone-error"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              placeholder="+7 (900) 000-00-00"
+              pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+              required
+            />
+            <small class="order-form__hint" id="page-phone-hint">Формат: +7 (900) 000-00-00</small>
+            <p class="order-form__error" id="page-phone-error" hidden>
+              Введите телефон в формате +7 (900) 000-00-00.
+            </p>
+          </div>
+
+          <div class="order-form__field">
+            <label class="order-form__label" for="page-topic"
+              >Тема заявки *</label
+            >
+            <select
+              class="order-form__select"
+              id="page-topic"
+              aria-describedby="page-topic-error"
+              name="topic"
+              required
+            >
+              <option value="">Выберите тему</option>
+              <option value="product">Заказ товара</option>
+              <option value="consultation">Консультация</option>
+              <option value="delivery">Доставка</option>
+            </select>
+            <p class="order-form__error" id="page-topic-error" hidden>
+              Выберите тему заявки.
+            </p>
+          </div>
+
+          <div class="order-form__field order-form__field--wide">
+            <label class="order-form__label" for="page-comment"
+              >Комментарий</label
+            >
+            <textarea
+              class="order-form__textarea"
+              id="page-comment"
+              name="comment"
+              rows="4"
+              placeholder="Дополнительные пожелания"
+            ></textarea>
+          </div>
+
+          <div class="order-form__field order-form__field--checkbox order-form__field--wide">
+            <label class="order-form__label">
+              <input
+                class="order-form__checkbox"
+                id="page-agreement"
+                aria-describedby="page-agreement-error"
+                name="agreement"
+                type="checkbox"
+                required
+              />
+              Я согласен на обработку персональных данных *
+            </label>
+            <p class="order-form__error" id="page-agreement-error" hidden>
+              Необходимо согласие на обработку данных.
+            </p>
+          </div>
+
+          <div class="order-form__actions">
+            <button class="button button--primary" type="submit">
+              Отправить заявку
+            </button>
+            <button class="button button--outline" type="reset">
+              Очистить
+            </button>
+          </div>
+        </form>
+
+        <p class="success-message" role="status" id="success-message-page" hidden>
+          Форма успешно отправлена!
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copy">© 2026 ShopProject. Все права защищены.</p>
+        <p class="site-footer__copy">
+          Дисциплина: фронтенд и бэкенд разработка
+        </p>
+        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="order.html">Заявка</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      // Обработка формы на странице order.html
+      (function () {
+        const form = document.getElementById("order-form-page");
+        const success = document.getElementById("success-message-page");
+        if (!form) return;
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const elements = Array.from(form.elements);
+
+          elements.forEach(function (el) {
+            if (el.willValidate) el.removeAttribute("aria-invalid");
+          });
+
+          if (!form.checkValidity()) {
+            elements.forEach(function (el) {
+              if (el.willValidate && !el.checkValidity()) {
+                el.setAttribute("aria-invalid", "true");
+              }
+            });
+            form.reportValidity();
+            return;
+          }
+
+          success.hidden = false;
+          form.reset();
+        });
+      })();
+    </script>
+
+    <a href="#" class="to-top" aria-label="Наверх">↑</a>
+  </body>
+</html>

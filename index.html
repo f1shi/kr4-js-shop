@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopProject — Учебный интернет-магазин</title>
+    <meta
+      name="description"
+      content="ShopProject — учебный интернет-магазин. Смартфоны, ноутбуки, аксессуары по выгодным ценам."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">ShopProject</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <button
+            class="site-nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav-list"
+            hidden
+          >
+            Меню
+          </button>
+          <ul class="site-nav__list" id="site-nav-list">
+            <li class="site-nav__item">
+              <a href="index.html" class="site-nav__link site-nav__link--active"
+                aria-current="page"
+                >Главная</a
+              >
+            </li>
+            <li class="site-nav__item">
+              <a href="catalog.html" class="site-nav__link">Каталог</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="product.html" class="site-nav__link">Товар</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="order.html" class="site-nav__link">Заявка</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="contacts.html" class="site-nav__link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero__content">
+          <h1 class="hero__title">Учебный интернет-магазин</h1>
+          <p class="hero__text">
+            Это стартовая страница учебного frontend-проекта. Здесь вы найдёте
+            популярные товары, преимущества магазина и сможете оставить заявку.
+          </p>
+          <a class="button button--primary hero__button" href="#popular"
+            >Перейти к товарам</a
+          >
+        </div>
+        <picture class="hero__picture">
+          <source media="(min-width: 1200px)" srcset="images/hero-desktop.jpg" />
+          <source media="(min-width: 768px)" srcset="images/hero-tablet.jpg" />
+          <img
+            src="images/hero-mobile.jpg"
+            alt="Смартфон, ноутбук, наушники и смарт-часы из каталога магазина"
+            width="640"
+            height="360"
+            class="hero__image"
+          />
+        </picture>
+      </section>
+
+      <!-- ПРЕИМУЩЕСТВА (якорь) -->
+      <section class="section" id="advantages">
+        <h2>Преимущества проекта</h2>
+        <ul class="advantages-list">
+          <li>понятная HTML-структура;</li>
+          <li>семантические блоки страницы;</li>
+          <li>подключение внешнего CSS-файла;</li>
+          <li>многостраничная архитектура сайта.</li>
+        </ul>
+      </section>
+
+      <!-- ПОПУЛЯРНЫЕ ТОВАРЫ (якорь) -->
+      <section class="section" id="popular">
+        <h2>Популярные товары</h2>
+
+        <div class="products-grid">
+          <article class="product-card product-card--hit">
+            <span class="product-card__badge product-card__badge--hit"
+              >Хит</span
+            >
+            <img
+              class="product-card__image"
+              src="images/galaxy-x-640.jpg"
+              srcset="
+                images/galaxy-x-480.jpg 480w,
+                images/galaxy-x-640.jpg 640w,
+                images/galaxy-x-960.jpg 960w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Смартфон Galaxy X"
+              width="640"
+              height="480"
+              loading="lazy"
+            />
+            <h3 class="product-card__title">Смартфон Galaxy X</h3>
+            <p class="product-card__description">
+              Краткое описание учебного товара.
+            </p>
+            <p class="product-card__price">Цена: 54 990 руб.</p>
+            <button
+              class="button button--primary product-card__button"
+              type="button"
+              data-product="Смартфон Galaxy X"
+            >
+              Заказать
+            </button>
+          </article>
+
+          <article class="product-card product-card--discount">
+            <span class="product-card__badge product-card__badge--discount"
+              >Скидка</span
+            >
+            <img
+              class="product-card__image"
+              src="images/probook-15-640.jpg"
+              srcset="
+                images/probook-15-480.jpg 480w,
+                images/probook-15-640.jpg 640w,
+                images/probook-15-960.jpg 960w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Ноутбук ProBook 15"
+              width="640"
+              height="480"
+              loading="lazy"
+            />
+            <h3 class="product-card__title">Ноутбук ProBook 15</h3>
+            <p class="product-card__description">
+              Краткое описание учебного товара.
+            </p>
+            <p class="product-card__price">Цена: 89 990 руб.</p>
+            <button
+              class="button button--primary product-card__button"
+              type="button"
+              data-product="Ноутбук ProBook 15"
+            >
+              Заказать
+            </button>
+          </article>
+
+          <article class="product-card product-card--new">
+            <span class="product-card__badge product-card__badge--new"
+              >Новинка</span
+            >
+            <img
+              class="product-card__image"
+              src="images/airsound-640.jpg"
+              srcset="
+                images/airsound-480.jpg 480w,
+                images/airsound-640.jpg 640w,
+                images/airsound-960.jpg 960w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Наушники AirSound"
+              width="640"
+              height="480"
+              loading="lazy"
+            />
+            <h3 class="product-card__title">Наушники AirSound</h3>
+            <p class="product-card__description">
+              Краткое описание учебного товара.
+            </p>
+            <p class="product-card__price">Цена: 12 990 руб.</p>
+            <button
+              class="button button--primary product-card__button"
+              type="button"
+              data-product="Наушники AirSound"
+            >
+              Заказать
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- ASIDE -->
+      <aside class="aside-info">
+        <h2>Информация для студентов</h2>
+        <p>
+          Проект расширяется: добавлены страницы каталога, карточки товара,
+          формы заявки и контактов, Flex/Grid, БЭМ-структура и адаптивная
+          версия.
+        </p>
+      </aside>
+    </main>
+
+    <footer id="contacts" class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copy">© 2026 ShopProject. Все права защищены.</p>
+        <p class="site-footer__copy">
+          Дисциплина: фронтенд и бэкенд разработка
+        </p>
+        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="order.html">Заявка</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <dialog
+      class="order-dialog"
+      id="order-dialog"
+      aria-labelledby="order-dialog-title"
+      aria-describedby="order-dialog-description"
+    >
+      <h2 class="order-dialog__title" id="order-dialog-title">
+        Оформление заявки
+      </h2>
+
+      <p class="order-dialog__description" id="order-dialog-description">
+        Заполните форму, и менеджер свяжется с вами. Закрыть окно можно кнопкой «Закрыть» или клавишей Esc.
+      </p>
+
+      <form
+        class="order-form"
+        id="order-form"
+        action="#"
+        method="post"
+        novalidate
+      >
+        <input id="selected-product" name="selected-product" type="hidden" />
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-name">Имя</label>
+          <input
+            class="order-form__input"
+            id="order-name"
+            name="name"
+            type="text"
+            placeholder="Введите ваше имя"
+            minlength="2"
+            autocomplete="given-name"
+            required
+          />
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-email">E-mail</label>
+          <input
+            class="order-form__input"
+            id="order-email"
+            name="email"
+            type="email"
+            placeholder="example@mail.ru"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-phone">Телефон</label>
+          <input
+            class="order-form__input"
+            id="order-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="+7 (900) 000-00-00"
+            pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+            required
+          />
+          <small class="order-form__hint">Формат: +7 (900) 000-00-00</small>
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-date">Дата связи</label>
+          <input
+            class="order-form__input"
+            id="order-date"
+            name="date"
+            type="date"
+          />
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="order-topic">Тема заявки</label>
+          <select
+            class="order-form__select"
+            id="order-topic"
+            name="topic"
+            required
+          >
+            <option value="">Выберите тему</option>
+            <option value="product">Заказ товара</option>
+            <option value="consultation">Консультация</option>
+            <option value="delivery">Доставка</option>
+          </select>
+        </div>
+
+        <div class="order-form__field order-form__field--wide">
+          <label class="order-form__label" for="order-comment"
+            >Комментарий</label
+          >
+          <textarea
+            class="order-form__textarea"
+            id="order-comment"
+            name="comment"
+            rows="4"
+            placeholder="Укажите дополнительную информацию"
+          ></textarea>
+        </div>
+
+        <div class="order-form__field order-form__field--checkbox order-form__field--wide">
+          <label class="order-form__label">
+            <input
+              class="order-form__checkbox"
+              id="order-agreement"
+              name="agreement"
+              type="checkbox"
+              required
+            />
+            Я согласен на обработку данных
+          </label>
+        </div>
+
+        <div class="order-form__actions">
+          <button
+            class="button button--outline"
+            type="button"
+            id="close-order-dialog"
+            aria-label="Закрыть окно заявки"
+          >
+            Закрыть
+          </button>
+          <button class="button button--primary" type="submit">
+            Отправить заявку
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <p class="success-message" role="status" id="success-message" hidden>
+      Форма успешно отправлена!
+    </p>
+
+    <a href="#" class="to-top" aria-label="Наверх">↑</a>
+  </body>
+</html>
