@@ -141,9 +141,15 @@ const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
 
 if (messageElement) {
-  messageElement.textContent = 'JavaScript подключён корректно.';
+  messageElement.textContent = 'Массив товаров и функции обработки данных подключены.';
 }
 
 if (productOutputElement) {
-  productOutputElement.textContent = productSummary;
+  productOutputElement.textContent = [
+    `Всего товаров: ${products.length}`,
+    `Товаров в наличии: ${countAvailableProducts(products)}`,
+    `Средняя цена: ${formatPrice(calculateAveragePrice(products))}`,
+    `Результатов поиска "наушники": ${searchProducts(products, 'наушники').length}`,
+    `Пример карточки: ${productSummary}`
+  ].join('\n');
 }
