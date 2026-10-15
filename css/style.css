@@ -857,3 +857,14 @@ a:focus-visible {
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
 }
+
+.product-card__status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-success);
+}
+
+.product-card__button:disabled {
+  color: var(--color-white);
+  background-color: var(--color-muted);
+}
