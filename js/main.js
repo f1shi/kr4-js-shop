@@ -38,3 +38,14 @@ console.log(getProductStatus(product));
 const productSummary = createProductSummary(product);
 
 console.log(productSummary);
+
+const messageElement = document.querySelector('.js-message');
+const productOutputElement = document.querySelector('.product-output');
+
+if (messageElement) {
+  messageElement.textContent = 'JavaScript подключён корректно.';
+}
+
+if (productOutputElement) {
+  productOutputElement.textContent = productSummary;
+}
