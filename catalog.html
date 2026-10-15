@@ -72,240 +72,57 @@
           <aside class="catalog-filters">
             <h2 class="catalog-filters__title">Фильтры</h2>
 
-            <form class="filters-form" action="#" method="get">
-              <fieldset class="filters-form__group">
-                <legend class="filters-form__legend">Категория</legend>
-
-                <label class="filters-form__label">
-                  <input type="checkbox" name="category" value="all" checked />
-                  Все товары
-                </label>
-
-                <label class="filters-form__label">
-                  <input type="checkbox" name="category" value="smartphones" />
-                  Смартфоны
-                </label>
-
-                <label class="filters-form__label">
-                  <input type="checkbox" name="category" value="laptops" />
-                  Ноутбуки
-                </label>
-
-                <label class="filters-form__label">
-                  <input type="checkbox" name="category" value="headphones" />
-                  Наушники
-                </label>
-
-                <label class="filters-form__label">
-                  <input type="checkbox" name="category" value="accessories" />
-                  Аксессуары
-                </label>
-              </fieldset>
-
-              <fieldset class="filters-form__group">
-                <legend class="filters-form__legend">Цена</legend>
-
-                <label class="filters-form__label" for="price-from">От</label>
+            <section class="catalog-controls" aria-label="Управление каталогом">
+              <div class="catalog-controls__group">
+                <label class="catalog-controls__label" for="catalog-search"
+                  >Поиск товара</label
+                >
                 <input
-                  class="filters-form__input"
-                  id="price-from"
-                  name="price-from"
-                  type="number"
-                  min="0"
-                  placeholder="0"
+                  id="catalog-search"
+                  class="catalog-controls__input"
+                  type="search"
+                  placeholder="Введите название товара"
+                  autocomplete="off"
                 />
+              </div>
 
-                <label class="filters-form__label" for="price-to">До</label>
-                <input
-                  class="filters-form__input"
-                  id="price-to"
-                  name="price-to"
-                  type="number"
-                  min="0"
-                  placeholder="100000"
-                />
-              </fieldset>
+              <div class="catalog-controls__group">
+                <label class="catalog-controls__label" for="category-filter"
+                  >Категория</label
+                >
+                <select id="category-filter" class="catalog-controls__select">
+                  <option value="all">Все категории</option>
+                  <option value="smartphones">Смартфоны</option>
+                  <option value="laptops">Ноутбуки</option>
+                  <option value="headphones">Наушники</option>
+                  <option value="accessories">Аксессуары</option>
+                </select>
+              </div>
 
-              <button class="button button--primary" type="submit">
-                Применить
-              </button>
-            </form>
+              <div class="catalog-controls__group">
+                <label class="catalog-controls__label" for="sort-select"
+                  >Сортировка</label
+                >
+                <select id="sort-select" class="catalog-controls__select">
+                  <option value="default">По умолчанию</option>
+                  <option value="price-asc">Сначала дешевле</option>
+                  <option value="price-desc">Сначала дороже</option>
+                  <option value="title-asc">По названию А-Я</option>
+                </select>
+              </div>
+            </section>
           </aside>
 
           <!-- Список товаров -->
           <section class="catalog-products">
             <h2>Список товаров</h2>
 
-            <div class="products-grid">
-              <article class="product-card">
-                <img
-                  class="product-card__image"
-                  src="images/galaxy-x-640.jpg"
-                  srcset="
-                    images/galaxy-x-480.jpg 480w,
-                    images/galaxy-x-640.jpg 640w,
-                    images/galaxy-x-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Смартфон Galaxy X"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Смартфон Galaxy X</h3>
-                <p class="product-card__description">
-                  6.5" AMOLED, 128 ГБ, 8 ГБ ОЗУ.
-                </p>
-                <p class="product-card__price">Цена: 54 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
+            <p class="catalog-count" aria-live="polite"></p>
+            <p class="catalog-empty" hidden>
+              По выбранным условиям товары не найдены.
+            </p>
 
-              <article class="product-card product-card--discount">
-                <span class="product-card__badge product-card__badge--discount"
-                  >Скидка</span
-                >
-                <img
-                  class="product-card__image"
-                  src="images/probook-15-640.jpg"
-                  srcset="
-                    images/probook-15-480.jpg 480w,
-                    images/probook-15-640.jpg 640w,
-                    images/probook-15-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Ноутбук ProBook 15"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Ноутбук ProBook 15</h3>
-                <p class="product-card__description">
-                  Intel Core i7, 16 ГБ, SSD 512 ГБ.
-                </p>
-                <p class="product-card__price">Цена: 89 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
-
-              <article class="product-card product-card--new">
-                <span class="product-card__badge product-card__badge--new"
-                  >Новинка</span
-                >
-                <img
-                  class="product-card__image"
-                  src="images/airsound-640.jpg"
-                  srcset="
-                    images/airsound-480.jpg 480w,
-                    images/airsound-640.jpg 640w,
-                    images/airsound-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Наушники AirSound"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Наушники AirSound</h3>
-                <p class="product-card__description">
-                  Беспроводные, активное шумоподавление.
-                </p>
-                <p class="product-card__price">Цена: 12 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
-
-              <article class="product-card">
-                <img
-                  class="product-card__image"
-                  src="images/fitband-640.jpg"
-                  srcset="
-                    images/fitband-480.jpg 480w,
-                    images/fitband-640.jpg 640w,
-                    images/fitband-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Смарт-часы FitBand"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Смарт-часы FitBand</h3>
-                <p class="product-card__description">
-                  AMOLED, GPS, автономность до 7 дней.
-                </p>
-                <p class="product-card__price">Цена: 9 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
-
-              <article class="product-card product-card--hit">
-                <span class="product-card__badge product-card__badge--hit"
-                  >Хит</span
-                >
-                <img
-                  class="product-card__image"
-                  src="images/ultraview-27-640.jpg"
-                  srcset="
-                    images/ultraview-27-480.jpg 480w,
-                    images/ultraview-27-640.jpg 640w,
-                    images/ultraview-27-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Монитор UltraView 27&quot;"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Монитор UltraView 27"</h3>
-                <p class="product-card__description">4K, IPS, 144 Гц.</p>
-                <p class="product-card__price">Цена: 32 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
-
-              <article class="product-card">
-                <img
-                  class="product-card__image"
-                  src="images/mechpro-640.jpg"
-                  srcset="
-                    images/mechpro-480.jpg 480w,
-                    images/mechpro-640.jpg 640w,
-                    images/mechpro-960.jpg 960w
-                  "
-                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                  alt="Клавиатура MechPro"
-                  width="640"
-                  height="480"
-                  loading="lazy"
-                />
-                <h3 class="product-card__title">Клавиатура MechPro</h3>
-                <p class="product-card__description">
-                  Механическая, RGB-подсветка.
-                </p>
-                <p class="product-card__price">Цена: 6 990 руб.</p>
-                <a
-                  class="button button--primary product-card__button"
-                  href="product.html"
-                  >Подробнее</a
-                >
-              </article>
-            </div>
+            <div class="products-grid" data-products-container></div>
           </section>
         </div>
       </section>
