@@ -1,5 +1,6 @@
 console.log('Файл main.js подключён');
-console.table(product);
+console.log(products);
+console.table(products);
 
 function formatPrice(price) {
   return `${price.toLocaleString('ru-RU')} руб.`;
@@ -30,12 +31,14 @@ function createProductSummary(product) {
   return `${product.title}: ${formatPrice(finalPrice)}${discountText}. Статус: ${status}.`;
 }
 
-console.log(formatPrice(product.price));
-console.log(calculateDiscount(product.price, product.discountPercent));
-console.log(calculateFinalPrice(product.price, product.discountPercent));
-console.log(getProductStatus(product));
+const firstProduct = products[0];
 
-const productSummary = createProductSummary(product);
+console.log(formatPrice(firstProduct.price));
+console.log(calculateDiscount(firstProduct.price, firstProduct.discountPercent));
+console.log(calculateFinalPrice(firstProduct.price, firstProduct.discountPercent));
+console.log(getProductStatus(firstProduct));
+
+const productSummary = createProductSummary(firstProduct);
 
 console.log(productSummary);
 
