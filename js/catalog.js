@@ -44,9 +44,29 @@ function getPreparedProducts(products, state) {
   return result;
 }
 
+const categoryLabels = {
+  smartphones: 'Смартфоны',
+  laptops: 'Ноутбуки',
+  headphones: 'Наушники',
+  accessories: 'Аксессуары'
+};
+
 function createProductCard(product) {
   const card = document.createElement('article');
   card.classList.add('product-card');
+
+  if (product.discountPercent > 0) {
+    card.classList.add('product-card--discount');
+
+    const badge = document.createElement('span');
+    badge.classList.add('product-card__badge', 'product-card__badge--discount');
+    badge.textContent = `−${product.discountPercent}%`;
+    card.append(badge);
+  }
+
+  if (!product.isAvailable) {
+    card.classList.add('product-card--unavailable');
+  }
 
   const image = document.createElement('img');
   image.classList.add('product-card__image');
@@ -56,9 +76,17 @@ function createProductCard(product) {
   image.height = 480;
   image.loading = 'lazy';
 
+  const category = document.createElement('p');
+  category.classList.add('product-card__category');
+  category.textContent = categoryLabels[product.category] || product.category;
+
   const title = document.createElement('h3');
   title.classList.add('product-card__title');
   title.textContent = product.title;
+
+  const rating = document.createElement('p');
+  rating.classList.add('product-card__rating');
+  rating.textContent = `Рейтинг: ${product.rating.toFixed(1)} из 5`;
 
   const description = document.createElement('p');
   description.classList.add('product-card__description');
@@ -66,11 +94,30 @@ function createProductCard(product) {
 
   const price = document.createElement('p');
   price.classList.add('product-card__price');
-  price.textContent = formatPrice(product.price);
+  price.textContent = formatPrice(calculateFinalPrice(product.price, product.discountPercent));
+
+  if (product.discountPercent > 0) {
+    const oldPrice = document.createElement('s');
+    oldPrice.classList.add('product-card__old-price');
+    oldPrice.textContent = formatPrice(product.price);
+    price.append(' ', oldPrice);
+  }
 
   const status = document.createElement('p');
   status.classList.add('product-card__status');
-  status.textContent = product.isAvailable ? 'В наличии' : 'Нет в наличии';
+  status.textContent = getProductStatus(product);
+
+  if (!product.isAvailable) {
+    status.classList.add('product-card__status--unavailable');
+  }
+
+  const actions = document.createElement('div');
+  actions.classList.add('product-card__actions');
+
+  const detailsLink = document.createElement('a');
+  detailsLink.classList.add('button', 'button--outline');
+  detailsLink.href = `product.html?id=${product.id}`;
+  detailsLink.textContent = 'Подробнее';
 
   const button = document.createElement('button');
   button.classList.add('button', 'button--primary', 'product-card__button');
@@ -84,7 +131,9 @@ function createProductCard(product) {
     button.textContent = 'Недоступно';
   }
 
-  card.append(image, title, description, price, status, button);
+  actions.append(detailsLink, button);
+
+  card.append(image, category, title, rating, description, price, status, actions);
 
   return card;
 }

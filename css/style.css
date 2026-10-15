@@ -1091,3 +1091,49 @@ a:focus-visible {
 .button--disabled {
   pointer-events: none;
 }
+
+.product-card__category {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.product-card__rating {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.product-card__old-price {
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.product-card__status--unavailable {
+  color: var(--color-danger);
+}
+
+.product-card--unavailable .product-card__image {
+  filter: grayscale(0.7);
+}
+
+.product-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: auto;
+}
+
+.product-card__actions .button {
+  flex: 1 1 120px;
+  min-height: 44px;
+  text-align: center;
+}
+
+.product-card__actions .product-card__button {
+  margin-top: 0;
+  align-self: stretch;
+}
