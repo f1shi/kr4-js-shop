@@ -160,3 +160,23 @@ if (sortSelect) {
 if (productsContainer) {
   updateCatalog();
 }
+
+if (productsContainer) {
+  productsContainer.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-action="add-to-cart"]');
+
+    if (!button) {
+      return;
+    }
+
+    const productId = Number(button.dataset.productId);
+    const selectedProduct = products.find((product) => product.id === productId);
+
+    if (!selectedProduct) {
+      console.warn('Товар не найден:', productId);
+      return;
+    }
+
+    console.log(`Товар добавлен в корзину: ${selectedProduct.title}`);
+  });
+}
