@@ -8,6 +8,7 @@
       name="description"
       content="Контактная информация ShopProject: адрес, телефон, email и форма обратной связи."
     />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <script src="js/data.js" defer></script>
@@ -211,37 +212,6 @@
         </nav>
       </div>
     </footer>
-
-    <script>
-      // Обработка формы обратной связи
-      (function () {
-        const form = document.getElementById("feedback-form");
-        const success = document.getElementById("success-message-contacts");
-        if (!form) return;
-
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          const elements = Array.from(form.elements);
-
-          elements.forEach(function (el) {
-            if (el.willValidate) el.removeAttribute("aria-invalid");
-          });
-
-          if (!form.checkValidity()) {
-            elements.forEach(function (el) {
-              if (el.willValidate && !el.checkValidity()) {
-                el.setAttribute("aria-invalid", "true");
-              }
-            });
-            form.reportValidity();
-            return;
-          }
-
-          success.hidden = false;
-          form.reset();
-        });
-      })();
-    </script>
 
     <a href="#" class="to-top" aria-label="Наверх">↑</a>
   </body>

@@ -14,6 +14,8 @@ const productSpecs = document.querySelector('[data-product-specs]');
 const productMessage = document.querySelector('[data-product-message]');
 const productCartButton = document.querySelector('.product-detail [data-action="add-to-cart"]');
 const productOrderButton = document.querySelector('.product-detail [data-product]');
+const productReviews = document.querySelector('[data-reviews]');
+const productReviewsEmpty = document.querySelector('[data-reviews-empty]');
 
 function createSpecRow(name, value) {
   const row = document.createElement('tr');
@@ -69,6 +71,12 @@ function renderProductPage(product) {
   productCartButton.disabled = !product.isAvailable;
   productCartButton.textContent = product.isAvailable ? 'В корзину' : 'Нет в наличии';
   productOrderButton.dataset.product = product.title;
+
+  if (productReviews && productReviewsEmpty) {
+    const hasReviews = product.id === 1;
+    productReviews.hidden = !hasReviews;
+    productReviewsEmpty.hidden = hasReviews;
+  }
 }
 
 if (pageProduct && productTitleElement && productParams.has('id')) {

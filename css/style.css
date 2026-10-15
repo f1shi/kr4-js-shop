@@ -1290,3 +1290,12 @@ a:focus-visible {
 [data-products-container] {
   scroll-margin-top: 120px;
 }
+
+.reviews[hidden],
+.reviews-empty[hidden] {
+  display: none;
+}
+
+.reviews-empty {
+  color: var(--color-muted);
+}

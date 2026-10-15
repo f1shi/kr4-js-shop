@@ -8,6 +8,7 @@
       name="description"
       content="Смартфон Galaxy X: 6.5 AMOLED, 128 ГБ, 8 ГБ ОЗУ. Характеристики, цена, заказ."
     />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <script src="js/data.js" defer></script>
@@ -179,7 +180,10 @@
 
         <!-- ОТЗЫВЫ (самостоятельная доработка) -->
         <h2>Отзывы</h2>
-        <div class="reviews">
+        <p class="reviews-empty" data-reviews-empty hidden>
+          Отзывов об этом товаре пока нет.
+        </p>
+        <div class="reviews" data-reviews>
           <article class="review">
             <p class="review__author">Анна К.</p>
             <p class="review__text">
