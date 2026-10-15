@@ -1286,3 +1286,7 @@ a:focus-visible {
 .product-detail__actions .product-card__button {
   margin-top: 0;
 }
+
+[data-products-container] {
+  scroll-margin-top: 120px;
+}
