@@ -1,0 +1,124 @@
+/* =========================================================
+   МОДАЛЬНОЕ ОКНО + ОБРАБОТКА ФОРМЫ В МОДАЛКЕ (index, catalog, product)
+   ========================================================= */
+
+function setFieldError(element, isInvalid) {
+  const errorElement = document.getElementById(`${element.id}-error`);
+
+  if (isInvalid) {
+    element.setAttribute('aria-invalid', 'true');
+  } else {
+    element.removeAttribute('aria-invalid');
+  }
+
+  if (errorElement) {
+    errorElement.hidden = !isInvalid;
+  }
+}
+
+const orderDialog = document.getElementById('order-dialog');
+const orderButtons = document.querySelectorAll('.product-card__button[data-product]');
+const closeDialogButton = document.getElementById('close-order-dialog');
+const selectedProductInput = document.getElementById('selected-product');
+
+if (orderDialog && orderButtons.length > 0) {
+  orderButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const productName = button.dataset.product || '';
+      if (selectedProductInput) selectedProductInput.value = productName;
+      orderDialog.showModal();
+    });
+  });
+}
+
+if (closeDialogButton && orderDialog) {
+  closeDialogButton.addEventListener('click', () => {
+    orderDialog.close();
+  });
+}
+
+const dialogOrderForm = document.getElementById('order-form');
+const successMessage = document.getElementById('success-message');
+
+if (dialogOrderForm) {
+  dialogOrderForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formElements = Array.from(dialogOrderForm.elements);
+
+    formElements.forEach((element) => {
+      if (element.willValidate) {
+        setFieldError(element, false);
+      }
+    });
+
+    if (!dialogOrderForm.checkValidity()) {
+      formElements.forEach((element) => {
+        if (element.willValidate && !element.checkValidity()) {
+          setFieldError(element, true);
+        }
+      });
+      dialogOrderForm.reportValidity();
+      return;
+    }
+
+    if (successMessage) successMessage.hidden = false;
+    dialogOrderForm.reset();
+    if (orderDialog) orderDialog.close();
+  });
+}
+
+/* =========================================================
+   ФОРМА ОБРАТНОЙ СВЯЗИ НА contacts.html
+   ========================================================= */
+
+const feedbackForm = document.getElementById('feedback-form');
+const feedbackSuccess = document.getElementById('success-message-contacts');
+
+if (feedbackForm) {
+  feedbackForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formElements = Array.from(feedbackForm.elements);
+
+    formElements.forEach((element) => {
+      if (element.willValidate) {
+        setFieldError(element, false);
+      }
+    });
+
+    if (!feedbackForm.checkValidity()) {
+      formElements.forEach((element) => {
+        if (element.willValidate && !element.checkValidity()) {
+          setFieldError(element, true);
+        }
+      });
+      feedbackForm.reportValidity();
+      return;
+    }
+
+    if (feedbackSuccess) feedbackSuccess.hidden = false;
+    feedbackForm.reset();
+  });
+}
+const siteNav = document.querySelector('.site-nav');
+const navToggle = document.querySelector('.site-nav__toggle');
+
+if (siteNav && navToggle) {
+  siteNav.classList.add('site-nav--collapsible');
+  navToggle.hidden = false;
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!isOpen));
+    siteNav.classList.toggle('site-nav--open', !isOpen);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && siteNav.classList.contains('site-nav--open')) {
+      navToggle.setAttribute('aria-expanded', 'false');
+      siteNav.classList.remove('site-nav--open');
+      navToggle.focus();
+    }
+  });
+}

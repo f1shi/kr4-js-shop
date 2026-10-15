@@ -10,7 +10,8 @@
     />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <script src="js/main.js" defer></script>
+    <script src="js/validation.js" defer></script>
+    <script src="js/modal.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к основному содержимому</a>
@@ -87,9 +88,7 @@
               minlength="2"
               required
             />
-            <p class="order-form__error" id="page-name-error" hidden>
-              Введите имя (минимум 2 символа).
-            </p>
+            <p class="order-form__error form-error" id="page-name-error"></p>
           </div>
 
           <div class="order-form__field">
@@ -103,9 +102,7 @@
               placeholder="ivan@example.com"
               required
             />
-            <p class="order-form__error" id="page-email-error" hidden>
-              Введите корректный e-mail.
-            </p>
+            <p class="order-form__error form-error" id="page-email-error"></p>
           </div>
 
           <div class="order-form__field">
@@ -122,9 +119,7 @@
               required
             />
             <small class="order-form__hint" id="page-phone-hint">Формат: +7 (900) 000-00-00</small>
-            <p class="order-form__error" id="page-phone-error" hidden>
-              Введите телефон в формате +7 (900) 000-00-00.
-            </p>
+            <p class="order-form__error form-error" id="page-phone-error"></p>
           </div>
 
           <div class="order-form__field">
@@ -143,9 +138,7 @@
               <option value="consultation">Консультация</option>
               <option value="delivery">Доставка</option>
             </select>
-            <p class="order-form__error" id="page-topic-error" hidden>
-              Выберите тему заявки.
-            </p>
+            <p class="order-form__error form-error" id="page-topic-error"></p>
           </div>
 
           <div class="order-form__field order-form__field--wide">
@@ -173,10 +166,10 @@
               />
               Я согласен на обработку персональных данных *
             </label>
-            <p class="order-form__error" id="page-agreement-error" hidden>
-              Необходимо согласие на обработку данных.
-            </p>
+            <p class="order-form__error form-error" id="page-agreement-error"></p>
           </div>
+
+          <p class="form-message order-form__field--wide" aria-live="polite"></p>
 
           <div class="order-form__actions">
             <button class="button button--primary" type="submit">
@@ -187,10 +180,6 @@
             </button>
           </div>
         </form>
-
-        <p class="success-message" role="status" id="success-message-page" hidden>
-          Форма успешно отправлена!
-        </p>
       </section>
     </main>
 
@@ -208,37 +197,6 @@
         </nav>
       </div>
     </footer>
-
-    <script>
-      // Обработка формы на странице order.html
-      (function () {
-        const form = document.getElementById("order-form-page");
-        const success = document.getElementById("success-message-page");
-        if (!form) return;
-
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          const elements = Array.from(form.elements);
-
-          elements.forEach(function (el) {
-            if (el.willValidate) el.removeAttribute("aria-invalid");
-          });
-
-          if (!form.checkValidity()) {
-            elements.forEach(function (el) {
-              if (el.willValidate && !el.checkValidity()) {
-                el.setAttribute("aria-invalid", "true");
-              }
-            });
-            form.reportValidity();
-            return;
-          }
-
-          success.hidden = false;
-          form.reset();
-        });
-      })();
-    </script>
 
     <a href="#" class="to-top" aria-label="Наверх">↑</a>
   </body>
