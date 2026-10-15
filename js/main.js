@@ -1,158 +1,155 @@
-/* =========================================================
-   МОДАЛЬНОЕ ОКНО + ОБРАБОТКА ФОРМЫ В МОДАЛКЕ (index, catalog, product)
-   ========================================================= */
+console.log('Файл main.js подключён');
+console.log(products);
+console.table(products);
 
-function setFieldError(element, isInvalid) {
-  const errorElement = document.getElementById(`${element.id}-error`);
+function formatPrice(price) {
+  return `${price.toLocaleString('ru-RU')} руб.`;
+}
 
-  if (isInvalid) {
-    element.setAttribute('aria-invalid', 'true');
-  } else {
-    element.removeAttribute('aria-invalid');
+function calculateDiscount(price, discountPercent) {
+  return price * discountPercent / 100;
+}
+
+function calculateFinalPrice(price, discountPercent) {
+  const discountValue = calculateDiscount(price, discountPercent);
+  return price - discountValue;
+}
+
+function getProductStatus(product) {
+  if (product.isAvailable) {
+    return 'В наличии';
   }
 
-  if (errorElement) {
-    errorElement.hidden = !isInvalid;
+  return 'Нет в наличии';
+}
+
+function createProductSummary(product) {
+  const finalPrice = calculateFinalPrice(product.price, product.discountPercent);
+  const status = getProductStatus(product);
+  const discountText = product.discountPercent > 0 ? `, скидка ${product.discountPercent}%` : '';
+
+  return `${product.title}: ${formatPrice(finalPrice)}${discountText}. Статус: ${status}.`;
+}
+
+function getProductTitles(products) {
+  return products.map((product) => product.title);
+}
+
+function getAvailableProducts(products) {
+  return products.filter((product) => product.isAvailable);
+}
+
+function searchProducts(products, query) {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (normalizedQuery === '') {
+    return products;
   }
-}
 
-const orderDialog = document.getElementById('order-dialog');
-const orderButtons = document.querySelectorAll('.product-card__button[data-product]');
-const closeDialogButton = document.getElementById('close-order-dialog');
-const selectedProductInput = document.getElementById('selected-product');
-
-if (orderDialog && orderButtons.length > 0) {
-  orderButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const productName = button.dataset.product || '';
-      if (selectedProductInput) selectedProductInput.value = productName;
-      orderDialog.showModal();
-    });
+  return products.filter((product) => {
+    return product.title.toLowerCase().includes(normalizedQuery);
   });
 }
 
-if (closeDialogButton && orderDialog) {
-  closeDialogButton.addEventListener('click', () => {
-    orderDialog.close();
+function filterProductsByCategory(products, category) {
+  if (category === 'all') {
+    return products;
+  }
+
+  return products.filter((product) => {
+    return product.category === category;
   });
 }
 
-const orderForm = document.getElementById('order-form');
-const successMessage = document.getElementById('success-message');
+function sortProductsByPrice(products, direction = 'asc') {
+  const productsCopy = [...products];
 
-if (orderForm) {
-  orderForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  if (direction === 'desc') {
+    return productsCopy.sort((a, b) => b.price - a.price);
+  }
 
-    const formElements = Array.from(orderForm.elements);
-
-    formElements.forEach((element) => {
-      if (element.willValidate) {
-        setFieldError(element, false);
-      }
-    });
-
-    if (!orderForm.checkValidity()) {
-      formElements.forEach((element) => {
-        if (element.willValidate && !element.checkValidity()) {
-          setFieldError(element, true);
-        }
-      });
-      orderForm.reportValidity();
-      return;
-    }
-
-    if (successMessage) successMessage.hidden = false;
-    orderForm.reset();
-    if (orderDialog) orderDialog.close();
-  });
+  return productsCopy.sort((a, b) => a.price - b.price);
 }
 
-/* =========================================================
-   ФОРМА НА СТРАНИЦЕ order.html
-   ========================================================= */
-
-const pageOrderForm = document.getElementById('order-form-page');
-const pageSuccessMessage = document.getElementById('success-message-page');
-
-if (pageOrderForm) {
-  pageOrderForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formElements = Array.from(pageOrderForm.elements);
-
-    formElements.forEach((element) => {
-      if (element.willValidate) {
-        setFieldError(element, false);
-      }
-    });
-
-    if (!pageOrderForm.checkValidity()) {
-      formElements.forEach((element) => {
-        if (element.willValidate && !element.checkValidity()) {
-          setFieldError(element, true);
-        }
-      });
-      pageOrderForm.reportValidity();
-      return;
-    }
-
-    if (pageSuccessMessage) pageSuccessMessage.hidden = false;
-    pageOrderForm.reset();
-  });
+function findProductById(products, id) {
+  return products.find((product) => product.id === id);
 }
 
-/* =========================================================
-   ФОРМА ОБРАТНОЙ СВЯЗИ НА contacts.html
-   ========================================================= */
-
-const feedbackForm = document.getElementById('feedback-form');
-const feedbackSuccess = document.getElementById('success-message-contacts');
-
-if (feedbackForm) {
-  feedbackForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formElements = Array.from(feedbackForm.elements);
-
-    formElements.forEach((element) => {
-      if (element.willValidate) {
-        setFieldError(element, false);
-      }
-    });
-
-    if (!feedbackForm.checkValidity()) {
-      formElements.forEach((element) => {
-        if (element.willValidate && !element.checkValidity()) {
-          setFieldError(element, true);
-        }
-      });
-      feedbackForm.reportValidity();
-      return;
-    }
-
-    if (feedbackSuccess) feedbackSuccess.hidden = false;
-    feedbackForm.reset();
-  });
+function calculateTotalPrice(products) {
+  return products.reduce((sum, product) => {
+    return sum + product.price;
+  }, 0);
 }
-const siteNav = document.querySelector('.site-nav');
-const navToggle = document.querySelector('.site-nav__toggle');
 
-if (siteNav && navToggle) {
-  siteNav.classList.add('site-nav--collapsible');
-  navToggle.hidden = false;
+function countAvailableProducts(products) {
+  return products.filter((product) => product.isAvailable).length;
+}
 
-  navToggle.addEventListener('click', () => {
-    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', String(!isOpen));
-    siteNav.classList.toggle('site-nav--open', !isOpen);
-  });
+function calculateAveragePrice(products) {
+  if (products.length === 0) {
+    return 0;
+  }
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && siteNav.classList.contains('site-nav--open')) {
-      navToggle.setAttribute('aria-expanded', 'false');
-      siteNav.classList.remove('site-nav--open');
-      navToggle.focus();
-    }
-  });
+  const totalPrice = calculateTotalPrice(products);
+  return Math.round(totalPrice / products.length);
+}
+
+function getPreparedProducts(products, query, category, sortDirection) {
+  let result = [...products];
+
+  result = searchProducts(result, query);
+  result = filterProductsByCategory(result, category);
+  result = sortProductsByPrice(result, sortDirection);
+
+  return result;
+}
+
+const firstProduct = products[0];
+
+console.log(formatPrice(firstProduct.price));
+console.log(calculateDiscount(firstProduct.price, firstProduct.discountPercent));
+console.log(calculateFinalPrice(firstProduct.price, firstProduct.discountPercent));
+console.log(getProductStatus(firstProduct));
+
+const productSummary = createProductSummary(firstProduct);
+
+console.log(productSummary);
+
+console.log(getProductTitles(products));
+console.table(getAvailableProducts(products));
+console.table(searchProducts(products, 'наушники'));
+
+console.table(filterProductsByCategory(products, 'laptops'));
+console.table(sortProductsByPrice(products, 'asc'));
+console.table(sortProductsByPrice(products, 'desc'));
+
+const selectedProduct = findProductById(products, 3);
+
+if (selectedProduct) {
+  console.log(`Найден товар: ${selectedProduct.title}`);
+} else {
+  console.log('Товар не найден');
+}
+
+console.log(calculateTotalPrice(products));
+console.log(countAvailableProducts(products));
+console.log(calculateAveragePrice(products));
+
+console.table(getPreparedProducts(products, 'о', 'laptops', 'asc'));
+
+const messageElement = document.querySelector('.js-message');
+const productOutputElement = document.querySelector('.product-output');
+
+if (messageElement) {
+  messageElement.textContent = 'Массив товаров и функции обработки данных подключены.';
+}
+
+if (productOutputElement) {
+  productOutputElement.textContent = [
+    `Всего товаров: ${products.length}`,
+    `Товаров в наличии: ${countAvailableProducts(products)}`,
+    `Средняя цена: ${formatPrice(calculateAveragePrice(products))}`,
+    `Результатов поиска "наушники": ${searchProducts(products, 'наушники').length}`,
+    `Пример карточки: ${productSummary}`
+  ].join('\n');
 }
