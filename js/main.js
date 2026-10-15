@@ -1,7 +1,3 @@
-console.log('Файл main.js подключён');
-console.log(products);
-console.table(products);
-
 function formatPrice(price) {
   return `${price.toLocaleString('ru-RU')} руб.`;
 }
@@ -94,49 +90,6 @@ function calculateAveragePrice(products) {
   return Math.round(totalPrice / products.length);
 }
 
-function getPreparedProducts(products, query, category, sortDirection) {
-  let result = [...products];
-
-  result = searchProducts(result, query);
-  result = filterProductsByCategory(result, category);
-  result = sortProductsByPrice(result, sortDirection);
-
-  return result;
-}
-
-const firstProduct = products[0];
-
-console.log(formatPrice(firstProduct.price));
-console.log(calculateDiscount(firstProduct.price, firstProduct.discountPercent));
-console.log(calculateFinalPrice(firstProduct.price, firstProduct.discountPercent));
-console.log(getProductStatus(firstProduct));
-
-const productSummary = createProductSummary(firstProduct);
-
-console.log(productSummary);
-
-console.log(getProductTitles(products));
-console.table(getAvailableProducts(products));
-console.table(searchProducts(products, 'наушники'));
-
-console.table(filterProductsByCategory(products, 'laptops'));
-console.table(sortProductsByPrice(products, 'asc'));
-console.table(sortProductsByPrice(products, 'desc'));
-
-const selectedProduct = findProductById(products, 3);
-
-if (selectedProduct) {
-  console.log(`Найден товар: ${selectedProduct.title}`);
-} else {
-  console.log('Товар не найден');
-}
-
-console.log(calculateTotalPrice(products));
-console.log(countAvailableProducts(products));
-console.log(calculateAveragePrice(products));
-
-console.table(getPreparedProducts(products, 'о', 'laptops', 'asc'));
-
 const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
 
@@ -149,7 +102,7 @@ if (productOutputElement) {
     `Всего товаров: ${products.length}`,
     `Товаров в наличии: ${countAvailableProducts(products)}`,
     `Средняя цена: ${formatPrice(calculateAveragePrice(products))}`,
-    `Результатов поиска "наушники": ${searchProducts(products, 'наушники').length}`,
-    `Пример карточки: ${productSummary}`
+    `Самый дешёвый товар: ${sortProductsByPrice(products, 'asc')[0].title}`,
+    `Пример карточки: ${createProductSummary(products[0])}`
   ].join('\n');
 }

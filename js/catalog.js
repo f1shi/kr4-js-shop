@@ -15,28 +15,6 @@ const catalogState = {
   sort: 'default'
 };
 
-function searchProducts(products, query) {
-  const normalizedQuery = query.trim().toLowerCase();
-
-  if (normalizedQuery === '') {
-    return products;
-  }
-
-  return products.filter((product) => {
-    return product.title.toLowerCase().includes(normalizedQuery);
-  });
-}
-
-function filterProductsByCategory(products, category) {
-  if (category === 'all') {
-    return products;
-  }
-
-  return products.filter((product) => {
-    return product.category === category;
-  });
-}
-
 function sortProducts(products, sortType) {
   const productsCopy = [...products];
 
@@ -63,10 +41,6 @@ function getPreparedProducts(products, state) {
   result = sortProducts(result, state.sort);
 
   return result;
-}
-
-function formatPrice(price) {
-  return `${price.toLocaleString('ru-RU')} руб.`;
 }
 
 function createProductCard(product) {
