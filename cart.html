@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopProject — Корзина</title>
+    <meta
+      name="description"
+      content="Корзина ShopProject: выбранные товары, количество, промокод и итоговая сумма."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/data.js" defer></script>
+    <script src="js/storage.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/modal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">ShopProject</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <button
+            class="site-nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav-list"
+            hidden
+          >
+            Меню
+          </button>
+          <ul class="site-nav__list" id="site-nav-list">
+            <li class="site-nav__item">
+              <a href="index.html" class="site-nav__link">Главная</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="catalog.html" class="site-nav__link">Каталог</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="product.html" class="site-nav__link">Товар</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="order.html" class="site-nav__link">Заявка</a>
+            </li>
+            <li class="site-nav__item">
+              <a href="contacts.html" class="site-nav__link">Контакты</a>
+            </li>
+            <li class="site-nav__item">
+              <a
+                href="cart.html"
+                class="site-nav__link site-nav__link--cart site-nav__link--active"
+                aria-current="page"
+                >Корзина
+                <span class="cart-counter" data-cart-count>0</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <section class="section">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a class="breadcrumbs__link" href="index.html">Главная</a>
+          <span class="breadcrumbs__current" aria-current="page">Корзина</span>
+        </nav>
+
+        <h1>Корзина</h1>
+
+        <div class="cart-layout">
+          <section class="cart-items" aria-labelledby="cart-items-title">
+            <h2 class="cart-items__title" id="cart-items-title">
+              Выбранные товары
+            </h2>
+            <p class="cart-empty" hidden>
+              Корзина пуста.
+              <a href="catalog.html">Перейти в каталог</a>
+            </p>
+            <ul class="cart-list" data-cart-list></ul>
+          </section>
+
+          <aside class="cart-summary" aria-labelledby="cart-summary-title">
+            <h2 class="cart-summary__title" id="cart-summary-title">Итого</h2>
+            <dl class="cart-summary__list">
+              <div class="cart-summary__row">
+                <dt>Товаров</dt>
+                <dd data-cart-total-count>0</dd>
+              </div>
+              <div class="cart-summary__row">
+                <dt>Сумма</dt>
+                <dd data-cart-subtotal>0 руб.</dd>
+              </div>
+              <div class="cart-summary__row">
+                <dt>Скидка по промокоду</dt>
+                <dd data-cart-promo>0 руб.</dd>
+              </div>
+              <div class="cart-summary__row cart-summary__row--total">
+                <dt>К оплате</dt>
+                <dd data-cart-total>0 руб.</dd>
+              </div>
+            </dl>
+
+            <form class="promo-form" novalidate>
+              <label class="promo-form__label" for="promo-code">Промокод</label>
+              <div class="promo-form__row">
+                <input
+                  class="promo-form__input"
+                  id="promo-code"
+                  name="promo"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Например, STUDENT10"
+                />
+                <button class="button button--outline" type="submit">
+                  Применить
+                </button>
+              </div>
+              <p class="promo-form__message" aria-live="polite"></p>
+            </form>
+
+            <div class="cart-summary__actions">
+              <a class="button button--primary" href="order.html" data-cart-checkout
+                >Оформить заказ</a
+              >
+              <button
+                class="button button--outline"
+                type="button"
+                data-action="clear-cart"
+              >
+                Очистить корзину
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copy">© 2026 ShopProject. Все права защищены.</p>
+        <p class="site-footer__copy">
+          Дисциплина: фронтенд и бэкенд разработка
+        </p>
+        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="order.html">Заявка</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <a href="#" class="to-top" aria-label="Наверх">↑</a>
+  </body>
+</html>
