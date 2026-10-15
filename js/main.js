@@ -94,6 +94,16 @@ function calculateAveragePrice(products) {
   return Math.round(totalPrice / products.length);
 }
 
+function getPreparedProducts(products, query, category, sortDirection) {
+  let result = [...products];
+
+  result = searchProducts(result, query);
+  result = filterProductsByCategory(result, category);
+  result = sortProductsByPrice(result, sortDirection);
+
+  return result;
+}
+
 const firstProduct = products[0];
 
 console.log(formatPrice(firstProduct.price));
@@ -124,6 +134,8 @@ if (selectedProduct) {
 console.log(calculateTotalPrice(products));
 console.log(countAvailableProducts(products));
 console.log(calculateAveragePrice(products));
+
+console.table(getPreparedProducts(products, 'о', 'laptops', 'asc'));
 
 const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
