@@ -71,6 +71,29 @@ function sortProductsByPrice(products, direction = 'asc') {
   return productsCopy.sort((a, b) => a.price - b.price);
 }
 
+function findProductById(products, id) {
+  return products.find((product) => product.id === id);
+}
+
+function calculateTotalPrice(products) {
+  return products.reduce((sum, product) => {
+    return sum + product.price;
+  }, 0);
+}
+
+function countAvailableProducts(products) {
+  return products.filter((product) => product.isAvailable).length;
+}
+
+function calculateAveragePrice(products) {
+  if (products.length === 0) {
+    return 0;
+  }
+
+  const totalPrice = calculateTotalPrice(products);
+  return Math.round(totalPrice / products.length);
+}
+
 const firstProduct = products[0];
 
 console.log(formatPrice(firstProduct.price));
@@ -89,6 +112,18 @@ console.table(searchProducts(products, 'наушники'));
 console.table(filterProductsByCategory(products, 'laptops'));
 console.table(sortProductsByPrice(products, 'asc'));
 console.table(sortProductsByPrice(products, 'desc'));
+
+const selectedProduct = findProductById(products, 3);
+
+if (selectedProduct) {
+  console.log(`Найден товар: ${selectedProduct.title}`);
+} else {
+  console.log('Товар не найден');
+}
+
+console.log(calculateTotalPrice(products));
+console.log(countAvailableProducts(products));
+console.log(calculateAveragePrice(products));
 
 const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
