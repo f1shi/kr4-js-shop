@@ -31,6 +31,26 @@ function createProductSummary(product) {
   return `${product.title}: ${formatPrice(finalPrice)}${discountText}. Статус: ${status}.`;
 }
 
+function getProductTitles(products) {
+  return products.map((product) => product.title);
+}
+
+function getAvailableProducts(products) {
+  return products.filter((product) => product.isAvailable);
+}
+
+function searchProducts(products, query) {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (normalizedQuery === '') {
+    return products;
+  }
+
+  return products.filter((product) => {
+    return product.title.toLowerCase().includes(normalizedQuery);
+  });
+}
+
 const firstProduct = products[0];
 
 console.log(formatPrice(firstProduct.price));
@@ -41,6 +61,10 @@ console.log(getProductStatus(firstProduct));
 const productSummary = createProductSummary(firstProduct);
 
 console.log(productSummary);
+
+console.log(getProductTitles(products));
+console.table(getAvailableProducts(products));
+console.table(searchProducts(products, 'наушники'));
 
 const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
