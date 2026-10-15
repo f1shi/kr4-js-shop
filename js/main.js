@@ -106,3 +106,27 @@ if (productOutputElement) {
     `Пример карточки: ${createProductSummary(products[0])}`
   ].join('\n');
 }
+
+const THEME_STORAGE_KEY = 'shop-theme';
+const themeToggle = document.querySelector('[data-theme-toggle]');
+
+function applyTheme(theme) {
+  const isDark = theme === 'dark';
+
+  document.documentElement.dataset.theme = theme;
+
+  if (themeToggle) {
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+    themeToggle.textContent = isDark ? 'Светлая тема' : 'Тёмная тема';
+  }
+}
+
+applyTheme(loadFromStorage(THEME_STORAGE_KEY, 'light'));
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
+    saveToStorage(THEME_STORAGE_KEY, nextTheme);
+  });
+}

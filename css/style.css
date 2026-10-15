@@ -1209,3 +1209,55 @@ a:focus-visible {
   color: var(--color-white);
   background-color: var(--color-primary);
 }
+
+.theme-toggle {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  font: inherit;
+  color: var(--color-text);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #111827;
+  --color-text: #f3f4f6;
+  --color-muted: #cbd5e1;
+  --color-primary: #60a5fa;
+  --color-primary-dark: #93c5fd;
+  --color-border: #374151;
+  --color-surface: #1f2937;
+  --color-surface-accent: #1e293b;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-success-bg: #14532d;
+  --color-white: #0b1220;
+  color-scheme: dark;
+}
+
+[data-theme="dark"] .product-card__badge {
+  color: #0b1220;
+}
+
+[data-theme="dark"] .product-card__badge--discount {
+  background-color: #fbbf24;
+}
+
+[data-theme="dark"] .product-card__favorite {
+  background-color: rgb(17 24 39 / 0.9);
+}
+
+[data-theme="dark"] .skip-link {
+  color: #ffffff;
+}
