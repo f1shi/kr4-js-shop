@@ -4,6 +4,7 @@ const categoryFilter = document.querySelector('#category-filter');
 const sortSelect = document.querySelector('#sort-select');
 const catalogCount = document.querySelector('.catalog-count');
 const catalogEmpty = document.querySelector('.catalog-empty');
+const catalogMessage = document.querySelector('.catalog-message');
 
 if (!productsContainer) {
   console.warn('Контейнер товаров не найден. Проверьте data-products-container.');
@@ -151,6 +152,10 @@ if (productsContainer) {
       return;
     }
 
-    console.log(`Товар добавлен в корзину: ${selectedProduct.title}`);
+    const isAdded = addToCart(productId);
+
+    if (catalogMessage && isAdded) {
+      catalogMessage.textContent = `Товар «${selectedProduct.title}» добавлен в корзину.`;
+    }
   });
 }
